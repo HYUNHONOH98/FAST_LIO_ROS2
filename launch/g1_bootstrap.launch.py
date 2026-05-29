@@ -24,6 +24,11 @@ def generate_launch_description():
     robot_tf_use = LaunchConfiguration("robot_tf")
     joint_state_source = LaunchConfiguration("joint_state_source")
     joint_states_topic = LaunchConfiguration("joint_states_topic")
+    lowstate_topic = LaunchConfiguration("lowstate_topic")
+    unitree_message_type = LaunchConfiguration("unitree_message_type")
+    unitree_dds_domain_id = LaunchConfiguration("unitree_dds_domain_id")
+    unitree_network_interface = LaunchConfiguration("unitree_network_interface")
+    joint_to_motor_indices = LaunchConfiguration("joint_to_motor_indices")
     state_estimation_topic = LaunchConfiguration("state_estimation_topic")
 
     map_frame_id = LaunchConfiguration("map_frame_id")
@@ -49,6 +54,11 @@ def generate_launch_description():
             "use_sim_time": use_sim_time,
             "joint_state_source": joint_state_source,
             "joint_states_topic": joint_states_topic,
+            "lowstate_topic": lowstate_topic,
+            "unitree_message_type": unitree_message_type,
+            "unitree_dds_domain_id": unitree_dds_domain_id,
+            "unitree_network_interface": unitree_network_interface,
+            "joint_to_motor_indices": joint_to_motor_indices,
             "publish_frequency": "200.0",
         }.items(),
         condition=IfCondition(robot_tf_use),
@@ -114,6 +124,11 @@ def generate_launch_description():
             DeclareLaunchArgument("robot_tf", default_value="true"),
             DeclareLaunchArgument("joint_state_source", default_value="dummy"),
             DeclareLaunchArgument("joint_states_topic", default_value="/joint_states"),
+            DeclareLaunchArgument("lowstate_topic", default_value="rt/lowstate"),
+            DeclareLaunchArgument("unitree_message_type", default_value="hg"),
+            DeclareLaunchArgument("unitree_dds_domain_id", default_value="0"),
+            DeclareLaunchArgument("unitree_network_interface", default_value=""),
+            DeclareLaunchArgument("joint_to_motor_indices", default_value=""),
             DeclareLaunchArgument("state_estimation_topic", default_value="/state_estimation"),
             DeclareLaunchArgument("map_frame_id", default_value="map"),
             DeclareLaunchArgument("odom_frame_id", default_value="odom"),

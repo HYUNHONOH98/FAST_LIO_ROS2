@@ -1,5 +1,21 @@
 > ROS2 Fork repo maintainer: [Ericsiii](https://github.com/Ericsii)
 
+## Holosoma Package Notes
+
+This copy is packaged as `fast_lio_ros2` so it can coexist with the existing
+`fast_lio` relocalization package in the same ROS2 workspace.
+
+For the G1 bootstrap path, build this package with `holosoma_robot_description`
+and launch:
+
+```bash
+ros2 launch fast_lio_ros2 g1_bootstrap.launch.py
+```
+
+That launch does not run ICP relocalization. It publishes the robot description,
+creates `map -> odom` from the initial camera-to-foot z distance, and publishes
+Fast-LIO odometry on `/state_estimation`.
+
 ## Related Works and Extended Application
 
 **SLAM:**
@@ -112,7 +128,7 @@ Connect to your PC to Livox LiDAR by following  [Livox-ros-driver2 installation]
 ```bash
 cd <ros2_ws>
 . install/setup.bash # use setup.zsh if use zsh
-ros2 launch fast_lio mapping.launch.py config_file:=avia.yaml
+ros2 launch fast_lio_ros2 mapping.launch.py config_file:=avia.yaml
 ```
 
 Change `config_file` parameter to other yaml file under config directory as you need.
@@ -167,7 +183,7 @@ Files: Can be downloaded from [google drive](https://drive.google.com/drive/fold
 
 Run:
 ```bash
-ros2 launch fast_lio mapping.launch.py config_path:=<path_to_your_config_file>
+ros2 launch fast_lio_ros2 mapping.launch.py config_path:=<path_to_your_config_file>
 ros2 bag play <your_bag_dir>
 
 ```

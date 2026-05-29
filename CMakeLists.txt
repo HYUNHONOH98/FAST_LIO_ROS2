@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(fast_lio)
+project(fast_lio_ros2)
 
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release)
@@ -57,6 +57,9 @@ find_package(sensor_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(std_srvs REQUIRED)
 find_package(visualization_msgs REQUIRED)
+find_package(tf2 REQUIRED)
+find_package(tf2_geometry_msgs REQUIRED)
+find_package(tf2_ros REQUIRED)
 find_package(pcl_ros REQUIRED)
 find_package(pcl_conversions REQUIRED)
 find_package(livox_ros_driver2 REQUIRED)
@@ -71,6 +74,9 @@ set(dependencies
   std_msgs
   std_srvs
   visualization_msgs
+  tf2
+  tf2_geometry_msgs
+  tf2_ros
   pcl_ros
   pcl_conversions
   livox_ros_driver2
@@ -92,31 +98,31 @@ rosidl_generate_interfaces(${PROJECT_NAME}
 )
 ament_export_dependencies(rosidl_default_runtime)
 
-add_executable(fastlio_mapping src/laserMapping.cpp include/ikd-Tree/ikd_Tree.cpp src/preprocess.cpp)
-target_include_directories(fastlio_mapping PUBLIC
+add_executable(fastlio_ros2_mapping src/laserMapping.cpp include/ikd-Tree/ikd_Tree.cpp src/preprocess.cpp)
+target_include_directories(fastlio_ros2_mapping PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>
   ${PCL_INCLUDE_DIRS}
 )
-target_link_libraries(fastlio_mapping ${PCL_LIBRARIES} ${PYTHON_LIBRARIES} Eigen3::Eigen)
-target_include_directories(fastlio_mapping PRIVATE ${PYTHON_INCLUDE_DIRS})
+target_link_libraries(fastlio_ros2_mapping ${PCL_LIBRARIES} ${PYTHON_LIBRARIES} Eigen3::Eigen)
+target_include_directories(fastlio_ros2_mapping PRIVATE ${PYTHON_INCLUDE_DIRS})
 
 list(APPEND EOL_LIST "foxy" "galactic" "eloquent" "dashing" "crystal")
 
 if($ENV{ROS_DISTRO} IN_LIST EOL_LIST)
   # Custommsg to support foxy & galactic
-  rosidl_target_interfaces(fastlio_mapping
+  rosidl_target_interfaces(fastlio_ros2_mapping
     ${PROJECT_NAME} "rosidl_typesupport_cpp")
 else()
   rosidl_get_typesupport_target(cpp_typesupport_target
     ${PROJECT_NAME} "rosidl_typesupport_cpp")
-  target_link_libraries(fastlio_mapping ${cpp_typesupport_target})
+  target_link_libraries(fastlio_ros2_mapping ${cpp_typesupport_target})
 endif()
 
-ament_target_dependencies(fastlio_mapping ${dependencies})
+ament_target_dependencies(fastlio_ros2_mapping ${dependencies})
 
 # ---------------- Install --------------- #
-install(TARGETS fastlio_mapping
+install(TARGETS fastlio_ros2_mapping
   DESTINATION lib/${PROJECT_NAME}
 )
 

@@ -40,6 +40,9 @@ def generate_launch_description():
     right_foot_frame_id = LaunchConfiguration("right_foot_frame_id")
     height_mode = LaunchConfiguration("height_mode")
     map_to_odom_z_sign = LaunchConfiguration("map_to_odom_z_sign")
+    map_to_odom_roll = LaunchConfiguration("map_to_odom_roll")
+    map_to_odom_pitch = LaunchConfiguration("map_to_odom_pitch")
+    map_to_odom_yaw = LaunchConfiguration("map_to_odom_yaw")
     fallback_initial_z = LaunchConfiguration("fallback_initial_z")
 
     robot_tf_launch = IncludeLaunchDescription(
@@ -79,6 +82,9 @@ def generate_launch_description():
                 "right_foot_frame_id": right_foot_frame_id,
                 "height_mode": height_mode,
                 "map_to_odom_z_sign": ParameterValue(map_to_odom_z_sign, value_type=float),
+                "map_to_odom_roll": ParameterValue(map_to_odom_roll, value_type=float),
+                "map_to_odom_pitch": ParameterValue(map_to_odom_pitch, value_type=float),
+                "map_to_odom_yaw": ParameterValue(map_to_odom_yaw, value_type=float),
                 "fallback_initial_z": ParameterValue(fallback_initial_z, value_type=float),
             }
         ],
@@ -139,6 +145,9 @@ def generate_launch_description():
             DeclareLaunchArgument("right_foot_frame_id", default_value="LR_FOOT"),
             DeclareLaunchArgument("height_mode", default_value="average_abs_z"),
             DeclareLaunchArgument("map_to_odom_z_sign", default_value="1.0"),
+            DeclareLaunchArgument("map_to_odom_roll", default_value="3.141592653589793"),
+            DeclareLaunchArgument("map_to_odom_pitch", default_value="0.0"),
+            DeclareLaunchArgument("map_to_odom_yaw", default_value="0.0"),
             DeclareLaunchArgument("fallback_initial_z", default_value="0.0"),
             robot_tf_launch,
             map_bootstrap_node,

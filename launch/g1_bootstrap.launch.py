@@ -33,8 +33,6 @@ def generate_launch_description():
 
     map_frame_id = LaunchConfiguration("map_frame_id")
     odom_frame_id = LaunchConfiguration("odom_frame_id")
-    sensor_frame_id = LaunchConfiguration("sensor_frame_id")
-    base_frame_id = LaunchConfiguration("base_frame_id")
     initial_camera_frame_id = LaunchConfiguration("initial_camera_frame_id")
     left_foot_frame_id = LaunchConfiguration("left_foot_frame_id")
     right_foot_frame_id = LaunchConfiguration("right_foot_frame_id")
@@ -100,10 +98,6 @@ def generate_launch_description():
             PathJoinSubstitution([config_path, config_file]),
             {
                 "use_sim_time": use_sim_time,
-                "common.odom_frame_id": odom_frame_id,
-                "common.sensor_frame_id": sensor_frame_id,
-                "common.base_frame_id": base_frame_id,
-                "common.send_odom_base_tf": True,
             },
         ],
         remappings=[
@@ -138,14 +132,12 @@ def generate_launch_description():
             DeclareLaunchArgument("state_estimation_topic", default_value="/state_estimation"),
             DeclareLaunchArgument("map_frame_id", default_value="map"),
             DeclareLaunchArgument("odom_frame_id", default_value="odom"),
-            DeclareLaunchArgument("sensor_frame_id", default_value="mid360_link"),
-            DeclareLaunchArgument("base_frame_id", default_value="pelvis"),
             DeclareLaunchArgument("initial_camera_frame_id", default_value="mid360_link"),
             DeclareLaunchArgument("left_foot_frame_id", default_value="LL_FOOT"),
             DeclareLaunchArgument("right_foot_frame_id", default_value="LR_FOOT"),
             DeclareLaunchArgument("height_mode", default_value="average_abs_z"),
             DeclareLaunchArgument("map_to_odom_z_sign", default_value="1.0"),
-            DeclareLaunchArgument("map_to_odom_roll", default_value="3.141592653589793"),
+            DeclareLaunchArgument("map_to_odom_roll", default_value="0.0"),
             DeclareLaunchArgument("map_to_odom_pitch", default_value="0.0"),
             DeclareLaunchArgument("map_to_odom_yaw", default_value="0.0"),
             DeclareLaunchArgument("fallback_initial_z", default_value="0.0"),

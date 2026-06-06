@@ -11,7 +11,7 @@
 
         common:
             odom_frame_id: "odom"
-            sensor_frame_id: "mid360_link"
+            sensor_frame_id: "mid360_link_IMU"
             base_frame_id: "pelvis"
             send_odom_base_tf: true
             lid_topic: "/livox/lidar"
@@ -36,12 +36,12 @@
             extrinsic_est_en: false
             extrinsic_T: [ -0.011, -0.02329, 0.04412 ]
             extrinsic_R: [ 1., 0., 0.,
-                           0., -1., 0.,
-                           0., 0., -1. ]
+                            0., 1., 0.,
+                            0., 0., 1.]
 
         publish:
             path_en: false
-            effect_map_en: false
+            effect_map_en: true
             map_en: true
             scan_publish_en: true
             dense_publish_en: false
